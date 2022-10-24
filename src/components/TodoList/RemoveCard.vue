@@ -21,6 +21,6 @@ import { useStore } from '../../store'
 <template>
   <div>
     <button @click="removeCard" class="close-button">X</button>
-    <p>{{props.card_id}}</p>
+    <!-- <p>{{props.card_id}}</p> -->
   </div>
 </template>

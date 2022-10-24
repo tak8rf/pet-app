@@ -39,4 +39,5 @@ import { useStore } from '../../store'
         <input type="submit" value="submit" />
     </form>
   </div>
+  <hr />
 </template>

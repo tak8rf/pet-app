@@ -5,6 +5,7 @@
     import draggable from 'vuedraggable';
     import RemoveCard from './RemoveCard.vue'
     import EditCardModal from './EditCardModal.vue'
+    
 
 
     interface Props {

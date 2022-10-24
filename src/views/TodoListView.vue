@@ -1,56 +1,39 @@
 <script setup lang="ts"> 
-    import { reactive, computed } from 'vue';
-    import { useStore, TodoList } from '../store'
+    import { computed, provide } from 'vue';
+    import { useStore } from '../store'
+    import { useRoute } from 'vue-router';
+    import { TodoList } from '../types/todolist'
     import draggable from 'vuedraggable';
-    import TodoCard from '../components/TodoCard.vue';
-
-    const todoList = reactive<TodoList>({
-        id: 0,
-        description: "",
-        todoCards: []
-    });
-
-    const clearForm = () => {
-        todoList.description = "";
-    };
+    import AddList from '../components/TodoList/AddList.vue'
+    import RemoveList from '../components/TodoList/RemoveList.vue'
+    import TodoCard from '../components/TodoList/TodoCardView.vue';
+    import AddCard from '../components/TodoList/AddCard.vue'
 
     const store = useStore()
 
-    const addList = () =>{
-        store.dispatch('addList', {
-            id: ++todoList.id,
-            description: todoList.description,
-            todoCards: todoList.todoCards
-        });
-        clearForm();
-    }
-
-    const removeList = (list_id: number) =>{
-        store.dispatch('removeList',list_id)
-    }
-
     const todoLists = computed<TodoList[]>({
-        get: () => store.getters.todoLists,
+        get: () => store.getters['TodoLists/todoLists'],
         set: val=> {
-            store.dispatch('dragList', val)
+            store.dispatch('TodoLists/dragList', val)
         }
     })
+    const route = useRoute()
+
+    const pet_id = parseInt(route.params.id as string)
+
+    provide('pet_id', pet_id)
 </script>
 
 <template>
     <div>
-        <form @submit.prevent="addList">
-            <input type="text" id="description" v-model="todoList.description" />
-            <input type="submit" value="submit" />
-        </form>
-        <p>{{todoList.description}}</p>
-        <hr/>
-        <draggable v-model="todoLists" group="list" item-key="id">
+        <add-list :pet_id="pet_id" />
+        <draggable v-model="todoLists" group="list" item-key="id" class="list-index" >
             <template #item="{element}">
-                <div>
-                    {{element.description}}
-                    <button @click="removeList(element.id)">X</button>
+                <div class="list">
+                    <p class="list-title">{{element.description}}</p>
+                    <remove-list :list_id="element.id" />
                     <todo-card :list_id="element.id" />
+                    <add-card :list_id="element.id"/>
                 </div>
             </template>
         </draggable>

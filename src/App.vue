@@ -1,6 +1,28 @@
+<script setup lang="ts">
+import { computed } from 'vue'
+import { useStore } from './store'
+
+  const store = useStore()
+
+  const idAuthenticated = computed(()=>{
+    return store.getters['Auth/idToken']!= null
+  })
+
+  const logout = () => {
+    store.dispatch('Auth/logout');
+  }
+</script>
 <template>
   <nav>
-    <router-link to="/todo">ToDo</router-link> |
+    <template v-if="!idAuthenticated" >
+      <router-link to="/">Pet</router-link> |
+      <span to="/comments" class="header-item" @click="logout" >Logout</span> |
+    </template>
+    <template v-if="idAuthenticated" >
+      <router-link to="/register" class="header-item">Register</router-link> |
+      <router-link to="/login" class="header-item">Login</router-link> |
+    </template>
+    
   </nav>
   <router-view/>
 </template>

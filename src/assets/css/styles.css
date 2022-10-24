@@ -58,7 +58,7 @@ main {
   margin-top: 10px;
   margin-bottom: 10px;
   position: relative;
-  padding: 30px 15px 40px;
+  padding: 20px 15px 20px;
   background-color: #fff;
   border-radius: 8px;
   cursor: pointer;
@@ -101,7 +101,7 @@ main {
 
 .add-button {
   margin-top: 15px;
-  padding: 15px 18px;
+  padding: 10px 10px;
   background-color: #999;
   border: none;
   border-radius: 8px;

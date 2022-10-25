@@ -45,6 +45,11 @@ const mutations: MutationTree<TodoListsState> = {
         todoList.todoCards = payload.val
         save()
     },
+
+    toggleModal(state, payload){
+        const todoCard = state.todoLists.find(list=>list.id === payload.list_id)!.todoCards.find(card => card.id == payload.card_id)!
+        todoCard.isEditable = !payload.isEditable
+    },
 };
 
 export const save = () => {

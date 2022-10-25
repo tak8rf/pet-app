@@ -15,12 +15,12 @@ import { useStore } from './store'
 <template>
   <nav>
     <template v-if="!idAuthenticated" >
-      <router-link to="/">Pet</router-link> |
-      <span to="/comments" class="header-item" @click="logout" >Logout</span> |
-    </template>
-    <template v-if="idAuthenticated" >
       <router-link to="/register" class="header-item">Register</router-link> |
       <router-link to="/login" class="header-item">Login</router-link> |
+    </template>
+    <template v-if="idAuthenticated" >
+      <router-link to="/">Pet</router-link> |
+      <span to="/" class="header-item" @click="logout" >Logout</span> |
     </template>
     
   </nav>

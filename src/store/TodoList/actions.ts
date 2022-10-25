@@ -27,6 +27,11 @@ const actions: ActionTree<TodoListsState, RootState> = {
     dragCard({commit}, payload: {val: TodoCard[], list_id: number}) {
         commit('dragCard', payload)
     },
+
+
+    toggleModal({commit}, payload) {
+        commit('toggleModal', payload)
+    },
 }
 
 export default actions;

@@ -20,19 +20,22 @@ export const state: TodoListsState = {
                     id: 1,
                     pet_name: 'アレン',
                     person_name: 'たくみ',
-                    description:'散歩'
+                    description:'散歩',
+                    isEditable: false
                 },
                 {
                     id: 2,
                     pet_name: 'アレン',
                     person_name: 'たくみ',
-                    description:'餌やり'
+                    description:'餌やり',
+                    isEditable: false
                 },
                 {
                     id: 3,
                     pet_name: 'アレン',
                     person_name: 'たくみ',
-                    description:'毛鋤き'
+                    description:'毛鋤き',
+                    isEditable: false
                 },
             ]
         },

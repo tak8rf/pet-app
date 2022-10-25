@@ -4,8 +4,7 @@
     import { TodoCard } from '../../types/todolist'
     import draggable from 'vuedraggable';
     import RemoveCard from './RemoveCard.vue'
-    import EditCardModal from './EditCardModal.vue'
-    
+    import EditCard from '../TodoList/EditCard.vue'
 
 
     interface Props {
@@ -40,8 +39,7 @@
         <draggable v-model="todoCards" group="card" item-key="id">
             <template #item="{element}">
                 <div class="card">
-                    <p @click="toggleModal">{{element.description}}</p>
-                    <edit-card-modal :list_id="props.list_id" :card_id="element.id" :isEditable="editModalVisible" @close="toggleModal" />
+                    <edit-card :list_id="props.list_id" :card_id="element.id" :card_description="element.description" />
                     <remove-card :list_id="props.list_id" :card_id="element.id" />
                 </div>
             </template>

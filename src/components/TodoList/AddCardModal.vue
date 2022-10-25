@@ -19,7 +19,8 @@
         id: 0,
         pet_name: '',
         person_name: '',
-        description:''
+        description:'',
+        isEditable: false
     })
 
     const clearForm = () => {
@@ -39,7 +40,8 @@
             id: Math.floor(Math.random() * 100000), 
             pet_name: pet.value.name,
             person_name: todoCard.person_name,
-            description: todoCard.description
+            description: todoCard.description,
+            isEditable: false
             },
             list_id: props.list_id
         });
@@ -56,13 +58,14 @@
                 <form @submit.prevent="addCard">
                     <label>
                         誰が実行するか入力してください。<br>
-                        <input type="text" id="description" v-model="todoCard.person_name" /><br>
+                        <input type="text" id="person_name" v-model="todoCard.person_name" /><br>
                     </label>
                     <label>
                         実行するタスクの内容を記載してください。<br>
                         <input type="text" id="description" v-model="todoCard.description" /><br>
                     </label>
                     <input type="submit" value="submit" class="add-button" />
+                    <p>{{props.list_id}}</p>
                 </form>
             </div>
     </teleport>

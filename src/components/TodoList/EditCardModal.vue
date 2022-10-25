@@ -5,7 +5,7 @@
     
     interface Props {
         list_id: number;
-        card_id: number
+        card_id: number;
         isEditable: boolean;
     }
 

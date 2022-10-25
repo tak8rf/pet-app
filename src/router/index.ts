@@ -5,6 +5,7 @@ import LoginView from '../views/LoginView.vue'
 import PetView from '../views/PetView.vue'
 import CalendarView from  '../views/CalendarView.vue'
 import SearchEventView from '../views/SearchEventView.vue'
+import { store } from '../store'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -20,22 +21,51 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/todo/:id',
     name: 'todo',
-    component: TodoListView
+    component: TodoListView,
+    beforeEnter(to, from, next) {
+      if (store.getters['Auth/idToken']) {
+        next();
+      } else {
+        next('/login');
+      }
+    }
   },
   {
     path: '/calendar/:id',
     name: 'calendar',
-    component: CalendarView
+    component: CalendarView,
+    beforeEnter(to, from, next) {
+      if (store.getters['Auth/idToken']) {
+        next();
+      } else {
+        next('/login');
+      }
+    }
+    
   },
   {
     path: '/search-event/:id',
     name: 'search-event',
-    component: SearchEventView
+    component: SearchEventView,
+    beforeEnter(to, from, next) {
+      if (store.getters['Auth/idToken']) {
+        next();
+      } else {
+        next('/login');
+      }
+    }
   },
   {
     path: '/',
     name: 'pet',
-    component: PetView
+    component: PetView,
+    beforeEnter(to, from, next) {
+      if (store.getters['Auth/idToken']) {
+        next();
+      } else {
+        next('/login');
+      }
+    }
   },
 
 ]

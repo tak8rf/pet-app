@@ -65,7 +65,6 @@
                         <input type="text" id="description" v-model="todoCard.description" /><br>
                     </label>
                     <input type="submit" value="submit" class="add-button" />
-                    <p>{{props.list_id}}</p>
                 </form>
             </div>
     </teleport>

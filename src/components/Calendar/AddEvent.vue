@@ -2,9 +2,11 @@
 import { computed, reactive } from 'vue'
 import { useStore } from '../../store'
 
-    const props = defineProps({
-        pet_id: Number
-    })
+    interface Props {
+        pet_id: number;
+    }
+
+    const props = defineProps<Props>()
 
     const event = reactive({
         id: 0,
@@ -31,7 +33,8 @@ import { useStore } from '../../store'
             detail: event.detail,
             start: event.start,
             end: event.start,
-            color: event.selected_color
+            color: event.selected_color,
+            isEditable: false
         })
         clearForm();
     }

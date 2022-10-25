@@ -64,7 +64,6 @@ const route = useRoute()
 const id = parseInt(route.params.id as string)
 
 const pet = computed(()=>{
-  const id = parseInt(route.params.id as string)
   return store.getters['Pet/getPetById'](id)
 })
 
@@ -94,15 +93,8 @@ const currentMonth= computed(()=>{
 })
 
 const events = computed(()=>{
-  const id = parseInt(route.params.id as string)
   return store.getters['Calendar/getEvents'].filter((event: EventItem)=>event.pet_id == id)
 })
-
-const editModalVisible = ref(false)
-
-const toggleModal = () => {
-  editModalVisible.value = !editModalVisible.value
-};
 
 </script>
 <template>
@@ -130,9 +122,10 @@ const toggleModal = () => {
           </div>
           <div v-for="dayEvent in day.dayEvents" :key="dayEvent.id" >
             <div class="calendar-event" :style="`background-color:${dayEvent.color}`" >
-              <p @click="toggleModal" >{{ dayEvent.health }}</p>
+              <!-- <p @click="toggleModal" >{{ dayEvent.health }}</p> -->
+              <edit-event :event_id="dayEvent.id" :health_description="dayEvent.health" />
             </div>
-            <edit-event :isEditable="editModalVisible" @close="toggleModal" :event_id="dayEvent.id" />
+            <!-- <edit-event :isEditable="isEditable" @close="toggleModal" :event_id="dayEvent.id" /> -->
           </div>
         </div>
       </div>

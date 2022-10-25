@@ -37,7 +37,6 @@
                 </div>
             </template>
         </draggable>
-        <p>{{todoLists}}</p>
     </div>
 </template>
 

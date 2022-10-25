@@ -49,7 +49,6 @@
                     </label>
                     <input type="submit" value="submit" class="add-button" />
                 </form>
-                <p>{{props.card_id}}</p>
             </div>
     </teleport>
   </div>

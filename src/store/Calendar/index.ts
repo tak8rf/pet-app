@@ -9,7 +9,8 @@ export const state: EventState = {
 };
 
 const getters: GetterTree<EventState, RootState> = {
-    getEvents: state => state.events
+    getEvents: state => state.events,
+    getEvent: state => (event_id: number) => state.events.find(event=>event.id === event_id)
 };
 
 const mutations: MutationTree<EventState> = {
@@ -28,6 +29,12 @@ const mutations: MutationTree<EventState> = {
     removeEvent(state, payload){
         state.events = state.events.filter(event=> event.id !== payload.event_id)
     },
+
+    toggleModal(state, payload){
+        const event = state.events.find(event=>event.id === payload.event_id)!
+        event.isEditable = !payload.isEditable
+        console.log(event.isEditable)
+    },
 };
 
 const actions: ActionTree<EventState, RootState> = {
@@ -39,6 +46,10 @@ const actions: ActionTree<EventState, RootState> = {
     },
     removeEvent({commit}, event) {
         commit('removeEvent', event)
+    },
+
+    toggleModal({commit}, payload) {
+        commit('toggleModal', payload)
     },
 }
 

@@ -9,5 +9,6 @@ export type EventItem={
     detail: string,
     start: Date,
     end: Date,
-    color: string
+    color: string,
+    isEditable: boolean
 }

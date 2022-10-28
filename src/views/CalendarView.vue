@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import moment from 'moment'
 import { ref, computed } from 'vue'
-import AddEvent from '../components/Calendar/AddEvent.vue'
+// import AddEvent from '../components/Calendar/AddEvent.vue'
 import EditEvent from '../components/Calendar/EditEvent.vue'
 import { useStore } from '../store'
 import { useRoute } from 'vue-router'
@@ -10,7 +10,7 @@ import { EventItem } from '../types/event'
 const currentDate = ref(moment())
 
 const getStartDate = () => {
-  let date = moment(currentDate);
+  let date = moment(currentDate.value);
   //月の始まりを算出
   date.startOf("month");
   const youbiNum = date.day();
@@ -18,15 +18,18 @@ const getStartDate = () => {
   return date.subtract(youbiNum, "days");
 };
 const getEndDate = () => {
-  let date = moment(currentDate);
+  let date = moment(currentDate.value);
   date.endOf("month");
   const youbiNum = date.day();
   return date.add(6 - youbiNum, "days");
 };
 
 const getCalendar = () => {
+  //カレンダーに表示する最初の日
   let startDate = getStartDate();
+  //カレンダーに表示する最後の日
   const endDate = getEndDate();
+  // カレンダーの縦列を表示
   const weekNumber = Math.ceil(endDate.diff(startDate, "days") / 7);
 
   let calendars = [];
@@ -72,11 +75,11 @@ const displayMonth = computed(()=>{
 })
 
 const prevMonth = () => {
-  currentDate.value= moment(currentDate).subtract(1, "month")
+  currentDate.value= moment(currentDate.value).subtract(1, "month")
 }
 
 const nextMonth = () => {
-  currentDate.value = moment(currentDate).add(1, "month")
+  currentDate.value = moment(currentDate.value).add(1, "month")
 }
 
 const youbi = (dayIndex: number) => {
@@ -99,11 +102,12 @@ const events = computed(()=>{
 </script>
 <template>
   <div>
-    <add-event :pet_id="id" />
+    <!-- <add-event :pet_id="id" /> -->
     <div class="content">
     <h2>{{ pet.name}}の体調管理</h2>
+    <router-link :to="{name:'add-event', params:{id}}">イベントを追加する</router-link> |
     <router-link :to="{name:'search-event', params:{id}}">体調を検索する</router-link>
-    <h3></h3>
+    <hr />
     <h2>現在の日付：{{ displayMonth }}</h2>
     <div class="button-area">
       <button @click="prevMonth" class="button">前の月</button>
@@ -122,10 +126,8 @@ const events = computed(()=>{
           </div>
           <div v-for="dayEvent in day.dayEvents" :key="dayEvent.id" >
             <div class="calendar-event" :style="`background-color:${dayEvent.color}`" >
-              <!-- <p @click="toggleModal" >{{ dayEvent.health }}</p> -->
               <edit-event :event_id="dayEvent.id" :health_description="dayEvent.health" />
             </div>
-            <!-- <edit-event :isEditable="isEditable" @close="toggleModal" :event_id="dayEvent.id" /> -->
           </div>
         </div>
       </div>

@@ -12,7 +12,7 @@
     const store = useStore()
 
     const todoLists = computed<TodoList[]>({
-        get: () => store.getters['TodoLists/todoLists'],
+        get: () => store.getters['TodoLists/todoLists'].filter((todoList: TodoList)=>todoList.pet_id == pet_id),
         set: val=> {
             store.dispatch('TodoLists/dragList', val)
         }
@@ -26,6 +26,7 @@
 
 <template>
     <div>
+        <h2>タスク管理</h2>
         <add-list :pet_id="pet_id" />
         <draggable v-model="todoLists" group="list" item-key="id" class="list-index" >
             <template #item="{element}">

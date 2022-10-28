@@ -19,3 +19,10 @@ import { useStore } from '../../store'
     <button @click="removeEvent">削除</button>
   </div>
 </template>
+
+<style scoped>
+button{
+  margin-right: 135px;
+  margin-top: 5px;
+}
+</style>

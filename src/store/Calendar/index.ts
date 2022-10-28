@@ -18,12 +18,13 @@ const mutations: MutationTree<EventState> = {
         state.events.push(event)
     },
     editEvent(state, payload){
-        console.log(payload)
         const event = state.events.find(event=>event.id === payload.event_id)!
         event.health = payload.event.health
         event.detail = payload.event.detail
         event.start = payload.event.start
         event.end = payload.event.start
+        console.log(event.isEditable)
+        event.isEditable = false
     },
   
     removeEvent(state, payload){

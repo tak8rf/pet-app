@@ -21,6 +21,7 @@ const mutations: MutationTree<TodoListsState> = {
     addCard(state, payload: {list_id: number, todoCard: TodoCard}){
         const todoList = state.todoLists.find(list=>list.id === payload.list_id)!
         todoList.todoCards.push(payload.todoCard)
+        todoList.isVisible = false
         save()
     },
     editCard(state, payload: {card_id: number,list_id: number, todoCard: TodoCard}){
@@ -29,6 +30,7 @@ const mutations: MutationTree<TodoListsState> = {
         console.log(oldTodoCard)
         oldTodoCard.description = payload.todoCard.description
         oldTodoCard.person_name = payload.todoCard.person_name
+        oldTodoCard.isEditable = false
         console.log(payload.todoCard)
         console.log(oldTodoCard)
         
@@ -49,6 +51,10 @@ const mutations: MutationTree<TodoListsState> = {
     toggleModal(state, payload){
         const todoCard = state.todoLists.find(list=>list.id === payload.list_id)!.todoCards.find(card => card.id == payload.card_id)!
         todoCard.isEditable = !payload.isEditable
+    },
+    toggleAddModal(state, payload){
+        const todoList = state.todoLists.find(list=>list.id === payload.list_id)!
+        todoList.isVisible = !payload.isVisible
     },
 };
 

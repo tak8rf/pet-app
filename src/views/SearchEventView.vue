@@ -12,7 +12,11 @@ import { EventItem } from '../types/event'
     const id = parseInt(route.params.id as string)
 
     const events = computed(()=>{
-        return store.getters['Calendar/getEvents'].filter((event: EventItem)=>event.pet_id == id).filter(element => element.detail.includes(eventFilter.value))
+        return store.getters['Calendar/getEvents'].filter((event: EventItem)=>event.pet_id == id).filter((element: EventItem)=> 
+        element.detail.includes(eventFilter.value)|| 
+        element.health.includes(eventFilter.value)||
+        element.start.toString().includes(eventFilter.value)
+        )
     })
 </script>
 <template>

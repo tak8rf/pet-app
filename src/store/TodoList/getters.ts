@@ -4,6 +4,7 @@ import { RootState  } from '../../types/rootstate';
 
 const getters: GetterTree<TodoListsState, RootState> = {
     todoLists: state => state.todoLists,
+    getTodoList: state => (list_id: number) =>state.todoLists.find(list=>list.id === list_id)!,
     todoCard: state => (list_id: number) => {
         const todoList = state.todoLists.find(todoList=>todoList.id === list_id)
         if (!todoList) {

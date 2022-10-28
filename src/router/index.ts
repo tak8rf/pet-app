@@ -5,6 +5,8 @@ import LoginView from '../views/LoginView.vue'
 import PetView from '../views/PetView.vue'
 import CalendarView from  '../views/CalendarView.vue'
 import SearchEventView from '../views/SearchEventView.vue'
+import AddPetView from '../views/AddPetView.vue'
+import AddEventView from '../views/AddEventView.vue'
 import { store } from '../store'
 
 const routes: Array<RouteRecordRaw> = [
@@ -41,7 +43,11 @@ const routes: Array<RouteRecordRaw> = [
         next('/login');
       }
     }
-    
+  },
+  {
+    path: '/add-event/:id',
+    name: 'add-event',
+    component: AddEventView
   },
   {
     path: '/search-event/:id',
@@ -66,6 +72,11 @@ const routes: Array<RouteRecordRaw> = [
         next('/login');
       }
     }
+  },
+  {
+    path: '/add-pet',
+    name: 'add-pet',
+    component: AddPetView
   },
 
 ]

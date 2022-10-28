@@ -14,7 +14,7 @@ export const state: TodoListsState = {
             id: 1,
             pet_id: 1,
             description: '未着手',
-            modalVisible: false,
+            isVisible: false,
             todoCards: [
                 {
                     id: 1,
@@ -43,14 +43,14 @@ export const state: TodoListsState = {
             id: 2,
             pet_id: 1,
             description: '進行中',
-            modalVisible: false,
+            isVisible: false,
             todoCards: []
         },
         {
             id: 3,
             pet_id: 1,
             description: '完了',
-            modalVisible: false,
+            isVisible: false,
             todoCards: []
         },
     ],

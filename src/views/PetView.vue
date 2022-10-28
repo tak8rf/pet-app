@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import AddPet from '../components/Pet/AddPet.vue'
 import { computed } from 'vue'
 import { useStore } from '../store'
 import { PetInfo } from '../types/pet'
@@ -18,7 +17,9 @@ const hasPets = computed<number>(()=>{
 </script>
 <template>
     <div>
-        <add-pet />
+        <h2>ペット一覧</h2>
+        <router-link :to="{name:'add-pet'}">ペットを追加する</router-link>
+        <hr />
         <p>登録ペット数:{{hasPets}}</p>
         <table>
             <thead>

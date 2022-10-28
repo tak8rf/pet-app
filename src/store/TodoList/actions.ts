@@ -32,6 +32,9 @@ const actions: ActionTree<TodoListsState, RootState> = {
     toggleModal({commit}, payload) {
         commit('toggleModal', payload)
     },
+    toggleAddModal({commit}, payload) {
+        commit('toggleAddModal', payload)
+    },
 }
 
 export default actions;

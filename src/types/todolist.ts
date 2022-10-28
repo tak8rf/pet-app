@@ -3,8 +3,9 @@ export type TodoListsState = {
 };
 
 export type TodoList = {
-    id: number;
-    pet_id: number;
+    id?: number;
+    isVisible: boolean;
+    pet_id?: number;
     description: string;
     todoCards: TodoCard[]
 };

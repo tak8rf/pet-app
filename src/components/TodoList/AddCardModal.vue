@@ -3,6 +3,29 @@
     import { TodoCard } from '../../types/todolist'
     import { PetInfo } from '../../types/pet'
     import { useStore } from '../../store'
+    import { useField, useForm } from 'vee-validate';
+    import { object, string } from 'yup';
+
+    const schema = object({
+        person_name: string().required('必須の項目です。').label('名前'),
+        card_description: string().required('必須の項目です。').label('タスク'),
+    });
+
+    const { errors, meta } = useForm({
+        validationSchema: schema,
+        initialValues: {
+            person_name: "",
+            card_description: ""
+        },
+    });
+
+    const { value: person_name } = useField<string>('person_name');
+    const { value: card_description } = useField<string>('card_description');
+
+    const clearForm = () => {
+        person_name.value = ""
+        card_description.value = ""
+    };
     
     interface Props {
         list_id: number;
@@ -15,19 +38,6 @@
 
     const pet_id = inject('pet_id')
 
-    const todoCard = reactive<TodoCard>({
-        id: 0,
-        pet_name: '',
-        person_name: '',
-        description:'',
-        isEditable: false
-    })
-
-    const clearForm = () => {
-        todoCard.person_name = "";
-        todoCard.description = "";
-    };
-
     const store = useStore()
 
     const pet = computed<PetInfo>(()=>{
@@ -39,8 +49,8 @@
             todoCard:{
             id: Math.floor(Math.random() * 100000), 
             pet_name: pet.value.name,
-            person_name: todoCard.person_name,
-            description: todoCard.description,
+            person_name: person_name.value,
+            description: card_description.value,
             isEditable: false
             },
             list_id: props.list_id
@@ -55,16 +65,22 @@
     <teleport to="body">
         <div class="modal" id="sample-modal" v-show="props.isVisible" @click="emitTest('close')"></div>
             <div class="modal-content" v-show="isVisible">
-                <form @submit.prevent="addCard">
+                <form @submit.prevent="addCard" >
                     <label>
-                        誰が実行するか入力してください。<br>
-                        <input type="text" id="person_name" v-model="todoCard.person_name" /><br>
+                        誰が実行するか入力してください。
+                        <span v-if="errors.person_name">
+                            |{{ errors.person_name }}
+                        </span><br>
+                        <input type="text" id="person_name" v-model="person_name" /><br>
                     </label>
                     <label>
-                        実行するタスクの内容を記載してください。<br>
-                        <input type="text" id="description" v-model="todoCard.description" /><br>
+                        実行するタスクの内容を記載してください。
+                        <span v-if="errors.card_description">
+                            |{{ errors.card_description }}
+                        </span><br>
+                        <input type="text" id="description" v-model="card_description" /><br>
                     </label>
-                    <input type="submit" value="submit" class="add-button" />
+                    <input type="submit" value="submit" class="add-button" :disabled="!meta.valid"/>
                 </form>
             </div>
     </teleport>

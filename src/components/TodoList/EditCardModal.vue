@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import { computed } from 'vue'
+    import { computed, reactive } from 'vue'
     import { TodoCard } from '../../types/todolist'
     import { useStore } from '../../store'
     
@@ -13,6 +13,10 @@
 
     const emitTest = defineEmits(['close'])
 
+    const todoCard = reactive({
+        date: '',
+    })
+
     const store = useStore()
 
     const card = computed<TodoCard>(()=>{
@@ -24,7 +28,9 @@
             todoCard:{
             id: Math.floor(Math.random() * 100000), 
             person_name: card.value.person_name,
-            description: card.value.description
+            description: card.value.description,
+            date: todoCard.date,
+            time: card.value.time
             },
             list_id: props.list_id,
             card_id: props.card_id
@@ -46,6 +52,11 @@
                     <label>
                         実行するタスクの内容を記載してください。<br>
                         <input type="text" id="description" v-model="card.description" /><br>
+                    </label>
+                    <label>
+                        日付と時間を入力してください。<br>
+                        <input name="date" type="date" v-model="todoCard.date" />
+                        <input name="time" type="time" v-model="card.time" /><br>
                     </label>
                     <input type="submit" value="submit" class="add-button" />
                 </form>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useStore } from '../../store'
+import { EventItem } from '../../types/event'
 import RemoveEvent from '../Calendar/RemoveEvent.vue'
 
 interface Props {
@@ -12,7 +13,7 @@ const props = defineProps<Props>()
 
   const emitTest = defineEmits(['close'])
 
-    const event = computed(()=>{
+    const event = computed<EventItem>(()=>{
       return store.getters['Calendar/getEvent'](props.event_id)
     })
 

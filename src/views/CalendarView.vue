@@ -5,7 +5,8 @@ import { ref, computed } from 'vue'
 import EditEvent from '../components/Calendar/EditEvent.vue'
 import { useStore } from '../store'
 import { useRoute } from 'vue-router'
-import { EventItem } from '../types/event'
+import { EventItem, DateItem } from '../types/event'
+import { PetInfo } from '../types/pet'
 
 const currentDate = ref(moment())
 
@@ -32,13 +33,13 @@ const getCalendar = () => {
   // カレンダーの縦列を表示
   const weekNumber = Math.ceil(endDate.diff(startDate, "days") / 7);
 
-  let calendars = [];
+  let calendars: DateItem[][] = [];
   let calendarDate = getStartDate();
 
   for (let week = 0; week < weekNumber; week++) {
-  let weekRow = [];
+  let weekRow: DateItem[] = [];
   for (let day = 0;  day < 7; day++) {
-    let dayEvents = getDayEvents(calendarDate)
+    let dayEvents: EventItem[] = getDayEvents(calendarDate)
     weekRow.push({
       date: calendarDate.get("date"),
       month: calendarDate.format("YYYY-MM"),
@@ -66,7 +67,7 @@ const route = useRoute()
 
 const id = parseInt(route.params.id as string)
 
-const pet = computed(()=>{
+const pet = computed<PetInfo>(()=>{
   return store.getters['Pet/getPetById'](id)
 })
 
@@ -95,14 +96,13 @@ const currentMonth= computed(()=>{
   return currentDate.value.format('YYYY-MM')
 })
 
-const events = computed(()=>{
+const events = computed<EventItem[]>(()=>{
   return store.getters['Calendar/getEvents'].filter((event: EventItem)=>event.pet_id == id)
 })
 
 </script>
 <template>
   <div>
-    <!-- <add-event :pet_id="id" /> -->
     <div class="content">
     <h2>{{ pet.name}}の体調管理</h2>
     <router-link :to="{name:'add-event', params:{id}}">イベントを追加する</router-link> |

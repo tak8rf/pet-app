@@ -2,6 +2,7 @@ import { Module } from "vuex";
 // import { TodoListsState } from "../../types/todoList";
 import { TodoListsState } from "../../types/todolist";
 import { RootState  } from "../../types/rootstate";
+import { displayDate } from '../../current-date'
 import actions  from "./actions";
 import mutations from "./mutations";
 import getters from "./getters";
@@ -21,6 +22,8 @@ export const state: TodoListsState = {
                     pet_name: 'アレン',
                     person_name: 'たくみ',
                     description:'散歩',
+                    date: displayDate,
+                    time: '21:33',
                     isEditable: false
                 },
                 {
@@ -28,6 +31,8 @@ export const state: TodoListsState = {
                     pet_name: 'アレン',
                     person_name: 'たくみ',
                     description:'餌やり',
+                    date: displayDate,
+                    time: '21:33',
                     isEditable: false
                 },
                 {
@@ -35,6 +40,8 @@ export const state: TodoListsState = {
                     pet_name: 'アレン',
                     person_name: 'たくみ',
                     description:'毛鋤き',
+                    date: displayDate,
+                    time: '21:33',
                     isEditable: false
                 },
             ]
@@ -55,9 +62,6 @@ export const state: TodoListsState = {
         },
     ],
 };
-// export const state: TodoListsState = {
-//     todoLists: [],
-// };
 
 
 export const TodoListsModule: Module<TodoListsState, RootState> = {

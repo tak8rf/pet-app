@@ -2,12 +2,12 @@
 // import { reactive } from 'vue'
 import { useStore } from '../../store'
 import { useField, useForm } from 'vee-validate';
-    import * as yup from 'yup';
+import { object, string } from 'yup';
 import moment from 'moment'
 
-    const schema = yup.object({
-        name: yup.string().required('必須の項目です。').label('名前'),
-        birthday: yup.string().required('必須の項目です。').label('日付'),
+    const schema = object({
+        name: string().required('必須の項目です。').label('名前'),
+        birthday: string().required('必須の項目です。').label('日付'),
     });
 
     const { errors } = useForm({

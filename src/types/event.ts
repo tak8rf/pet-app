@@ -9,6 +9,12 @@ export type EventItem={
     detail: string,
     start: Date,
     end: Date,
-    color: string,
+    color: "blue"| "red"|"limegreen"|"deepskyblue"|"dimgray"|"navy"|"orange"|"teal"|"royalblue",
     isEditable: boolean
+}
+
+export type DateItem = {
+    date: number
+    month: string
+    dayEvents: EventItem[]
 }

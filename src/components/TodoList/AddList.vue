@@ -14,7 +14,7 @@ import { object, string } from 'yup';
         },
     });
 
-    const { value: list_description } = useField('list_description');
+    const { value: list_description } = useField<string>('list_description');
 
     const clearForm = () => {
         list_description.value = ""

@@ -9,7 +9,7 @@
 
   const props = defineProps<Props>()
 
-    const isVisible = computed(()=>{
+    const isVisible = computed<boolean>(()=>{
         return store.getters['TodoLists/getTodoList'](props.list_id).isVisible
     })
 
@@ -26,9 +26,7 @@
 
 <template>
   <div>
-    <!-- クリックしたらモーダルがオープン -->
     <p class="text-input" @click="toggleModal">Add Card</p>
-    <!-- モーダルビューを呼び込む。その先で登録できるようにしたい。つまり、list_idをpropsとして渡す。リロードしても画面が消えないようにしたいため、値はtodoListsのstateで管理したい。  -->
     <add-card-modal :list_id="props.list_id" :isVisible="isVisible" @close="toggleModal"/>
   </div>
 </template>

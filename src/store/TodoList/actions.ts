@@ -29,10 +29,10 @@ const actions: ActionTree<TodoListsState, RootState> = {
     },
 
 
-    toggleModal({commit}, payload) {
+    toggleModal({commit}, payload: { isEditable: boolean, list_id: number, card_id: number}) {
         commit('toggleModal', payload)
     },
-    toggleAddModal({commit}, payload) {
+    toggleAddModal({commit}, payload: { isVisible: boolean, list_id: number, card_id: number}) {
         commit('toggleAddModal', payload)
     },
 }

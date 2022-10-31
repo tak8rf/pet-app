@@ -11,7 +11,7 @@ import { EventItem } from '../types/event'
 
     const id = parseInt(route.params.id as string)
 
-    const events = computed(()=>{
+    const events = computed<EventItem[]>(()=>{
         return store.getters['Calendar/getEvents'].filter((event: EventItem)=>event.pet_id == id).filter((element: EventItem)=> 
         element.detail.includes(eventFilter.value)|| 
         element.health.includes(eventFilter.value)||

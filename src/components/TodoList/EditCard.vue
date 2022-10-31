@@ -11,7 +11,7 @@ import EditCardModal from './EditCardModal.vue';
 
     const props = defineProps<Props>()
 
-    const isEditable = computed(()=>{
+    const isEditable = computed<boolean>(()=>{
         return store.getters['TodoLists/getTodoCardById'](props.list_id, props.card_id).isEditable
     })
 

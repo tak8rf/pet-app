@@ -1,6 +1,5 @@
 <script setup lang="ts">
-    import { computed, reactive, inject } from 'vue'
-    import { TodoCard } from '../../types/todolist'
+    import { computed, inject } from 'vue'
     import { PetInfo } from '../../types/pet'
     import { useStore } from '../../store'
     import { useField, useForm } from 'vee-validate';
@@ -9,22 +8,30 @@
     const schema = object({
         person_name: string().required('必須の項目です。').label('名前'),
         card_description: string().required('必須の項目です。').label('タスク'),
+        card_date: string().required('必須の項目です。').label('日付'),
+        card_time: string().required('必須の項目です。').label('時間'),
     });
 
     const { errors, meta } = useForm({
         validationSchema: schema,
         initialValues: {
             person_name: "",
-            card_description: ""
+            card_description: "",
+            card_date: "",
+            card_time: "",
         },
     });
 
     const { value: person_name } = useField<string>('person_name');
     const { value: card_description } = useField<string>('card_description');
+    const { value: card_date } = useField<string| Date>('card_date');
+    const { value: card_time } = useField<string| Date>('card_time');
 
     const clearForm = () => {
         person_name.value = ""
         card_description.value = ""
+        card_date.value = ""
+        card_time.value = ""
     };
     
     interface Props {
@@ -51,6 +58,8 @@
             pet_name: pet.value.name,
             person_name: person_name.value,
             description: card_description.value,
+            date: card_date.value,
+            time: card_time.value,
             isEditable: false
             },
             list_id: props.list_id
@@ -79,6 +88,14 @@
                             |{{ errors.card_description }}
                         </span><br>
                         <input type="text" id="description" v-model="card_description" /><br>
+                    </label>
+                    <label>
+                        実行する日付と時間を記載してください。
+                        <span v-if="errors.card_date">
+                            |{{ errors.card_date }}
+                        </span><br>
+                        <input name="date" type="date" v-model="card_date" />
+                        <input name="time" type="time" v-model="card_time" /><br>
                     </label>
                     <input type="submit" value="submit" class="add-button" :disabled="!meta.valid"/>
                 </form>

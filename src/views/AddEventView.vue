@@ -2,13 +2,13 @@
 import { useStore } from '../store'
 import { useRoute } from 'vue-router'
 import { useField, useForm } from 'vee-validate';
-import * as yup from 'yup';
+import { object, string } from 'yup';
 
-    const schema = yup.object({
-        selected_health: yup.string().required('必須の項目です。').label('名前'),
-        detail: yup.string().required('必須の項目です。').label('名前'),
-        start: yup.string().required('必須の項目です。').label('日付'),
-        selected_color: yup.string().required('必須の項目です。').label('日付'),
+    const schema = object({
+        selected_health: string().required('必須の項目です。').label('名前'),
+        detail: string().required('必須の項目です。').label('名前'),
+        start: string().required('必須の項目です。').label('日付'),
+        selected_color: string().required('必須の項目です。').label('日付'),
     });
 
     const { errors, meta } = useForm({

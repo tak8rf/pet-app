@@ -5,6 +5,7 @@
     import draggable from 'vuedraggable';
     import RemoveCard from './RemoveCard.vue'
     import EditCard from '../TodoList/EditCard.vue'
+    import moment from 'moment'
 
 
     interface Props {
@@ -15,8 +16,14 @@
 
     const store = useStore()
 
+    const currentDate = ref(moment())
+
+    const displayDate = computed<string>(()=>{
+        return currentDate.value.format('YYYY-MM-DD')
+    })
+
     const todoCards = computed<TodoCard[]>({
-        get: () => store.getters['TodoLists/todoCard'](props.list_id),
+        get: () => store.getters['TodoLists/todoCard'](props.list_id).filter((todoCard: TodoCard)=>todoCard.date.toString().includes(displayDate.value)),
         set: val => {
             store.dispatch('TodoLists/dragCard', {
                 val, 
@@ -24,13 +31,6 @@
             })
         }
     })
-
-    const editModalVisible = ref(false)
-
-    const toggleModal = () => {
-        editModalVisible.value = !editModalVisible.value
-        console.log(editModalVisible.value)
-    };
 
 </script>
 

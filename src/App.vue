@@ -5,7 +5,7 @@ import { useStore } from './store'
   const store = useStore()
 
   const idAuthenticated = computed(()=>{
-    return store.getters['Auth/idToken']!= null
+    return store.getters['Auth/idToken']!= ''
   })
 
   const logout = () => {

@@ -15,6 +15,8 @@ export type TodoCard ={
     pet_name: string,
     person_name: string,
     description: string;
+    date: Date;
+    time: Date;
     isEditable: boolean;
 }
 

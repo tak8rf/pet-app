@@ -1,19 +1,19 @@
 import { Module, ActionTree, MutationTree, GetterTree } from "vuex";
-import { AuthState, Auth } from "../../types/auth";
+import { AuthState, AuthRequest, AuthResponse, RefreshResponse } from "../../types/auth";
 import { RootState } from "../../types/rootstate";
 import { axiosAuth, axiosRefresh } from '../../axios';
 import router from "../../router"
 import { AxiosResponse } from "axios";
 
 const state: AuthState = {
-    idToken : null
+    idToken : ''
 };
 const getters: GetterTree<AuthState, RootState> = {
     idToken: state => state.idToken
 };
 
 const mutations: MutationTree<AuthState> = {
-    updateIdToken(state, idToken) {
+    updateIdToken(state, idToken: string) {
         state.idToken = idToken;
     }
 };
@@ -39,7 +39,7 @@ const actions: ActionTree<AuthState, RootState> = {
           commit('updateIdToken', idToken);
         }
       },
-      login({dispatch}, authData: Auth){
+      login({dispatch}, authData: AuthRequest){
         axiosAuth
         .post(
             '/accounts:signInWithPassword?key=AIzaSyB_4rHWZuPdElvwvC3jSCsjZr54H1_0fPg',
@@ -49,7 +49,7 @@ const actions: ActionTree<AuthState, RootState> = {
                 returnSecureToken: true
             }
         )
-        .then((response: AxiosResponse)=>{
+        .then((response: AxiosResponse<AuthResponse>)=>{
           dispatch('setAuthData', {
             idToken: response.data.idToken,
             expiresIn: response.data.expiresIn,
@@ -66,13 +66,13 @@ const actions: ActionTree<AuthState, RootState> = {
         router.replace('/login');
       },
       //トークンの有効期限後、リフレッシュトークンを返し、継続的に利用できるようにする関数
-      async refreshIdToken({dispatch}, refreshToken){
+      async refreshIdToken({dispatch}, refreshToken: string){
         await axiosRefresh
         .post('/token?key=AIzaSyB_4rHWZuPdElvwvC3jSCsjZr54H1_0fPg',{
           grant_type: 'refresh_token',
           refresh_token: refreshToken
         })
-        .then((response: AxiosResponse) =>{
+        .then((response: AxiosResponse<RefreshResponse>) =>{
           dispatch('setAuthData', {
             idToken: response.data.id_token,
             expiresIn: response.data.expires_in,
@@ -80,7 +80,7 @@ const actions: ActionTree<AuthState, RootState> = {
           });
         })
       },
-      register({dispatch}, authData){
+      register({dispatch}, authData: AuthRequest){
         axiosAuth
         .post(
           '/accounts:signUp?key=AIzaSyB_4rHWZuPdElvwvC3jSCsjZr54H1_0fPg',
@@ -90,7 +90,7 @@ const actions: ActionTree<AuthState, RootState> = {
                 returnSecureToken: true
             }
         )
-        .then((response: AxiosResponse)=>{
+        .then((response: AxiosResponse<AuthResponse>)=>{
           dispatch('setAuthData', {
             idToken: response.data.idToken,
             expiresIn: response.data.expiresIn,
@@ -99,7 +99,7 @@ const actions: ActionTree<AuthState, RootState> = {
         }) 
       },
       //ローカルステージに必要なデータを保存する処理
-      setAuthData({ commit, dispatch }, authData) {
+      setAuthData({ commit, dispatch }, authData: AuthResponse) {
         const now = new Date();
         //有効期限が切れるときの値を設定
         const expiryTimeMs = now.getTime() + authData.expiresIn * 1000;

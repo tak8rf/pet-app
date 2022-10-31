@@ -38,10 +38,6 @@ import { useStore } from '../../store'
         })
         clearForm();
     }
-
-    const events = computed(()=>{
-        return store.getters['Calendar/getEvents']
-    })
 </script>
 
 <template>
@@ -74,7 +70,6 @@ import { useStore } from '../../store'
                 <option>dimgray</option>
                 <option>navy</option>
                 <option>orange</option>
-                <option>limegreen</option>
                 <option>teal</option>
                 <option>royalblue</option>
             </select><br>

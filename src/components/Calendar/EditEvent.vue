@@ -12,7 +12,7 @@ const props = defineProps<Props>()
 
 const store = useStore()
 
-const isEditable = computed(()=>{
+const isEditable = computed<boolean>(()=>{
   return store.getters['Calendar/getEvent'](props.event_id).isEditable
 })
 

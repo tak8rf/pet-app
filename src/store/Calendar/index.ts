@@ -1,6 +1,7 @@
 import { Module, ActionTree, MutationTree, GetterTree } from "vuex";
 import { RootState} from '../../types/rootstate'
 import { EventState } from '../../types/event'
+import router from '../../router'
 
 const savedEvents = localStorage.getItem('events')
 
@@ -16,6 +17,8 @@ const getters: GetterTree<EventState, RootState> = {
 const mutations: MutationTree<EventState> = {
     addEvent(state, event){
         state.events.push(event)
+        const id = event.pet_id
+        router.push({ name: 'calendar', params: { id } }) 
     },
     editEvent(state, payload){
         const event = state.events.find(event=>event.id === payload.event_id)!

@@ -28,5 +28,6 @@ export const useStore = () => {
 store.subscribe((mutation, state: any) => {
   localStorage.setItem('events', JSON.stringify(state.Calendar.events))
   localStorage.setItem('pets', JSON.stringify(state.Pet.pets))
+  localStorage.setItem('todo-lists', JSON.stringify(state.TodoLists.todoLists))
 })
 

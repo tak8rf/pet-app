@@ -7,10 +7,10 @@ import actions  from "./actions";
 import mutations from "./mutations";
 import getters from "./getters";
 
-const TodoLists = localStorage.getItem('todo-lists')
+const savedTodoLists = localStorage.getItem('todo-lists')
 
 export const state: TodoListsState = {
-    todoLists: TodoLists?  JSON.parse(TodoLists): [
+    todoLists: savedTodoLists?  JSON.parse(savedTodoLists): [
         {
             id: 1,
             pet_id: 1,

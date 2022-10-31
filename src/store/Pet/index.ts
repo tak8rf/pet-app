@@ -1,6 +1,7 @@
 import { Module, ActionTree, MutationTree, GetterTree } from "vuex";
 import { RootState} from '../../types/rootstate'
 import { PetState } from '../../types/pet'
+import router from '../../router'
 
 const savedPets = localStorage.getItem('pets')
 
@@ -29,6 +30,7 @@ const getters: GetterTree<PetState, RootState> = {
 const mutations: MutationTree<PetState> = {
     addPet(state, pet){
         state.pets.push(pet)
+        router.push('/') 
     },
   
     removePet(state, payload){

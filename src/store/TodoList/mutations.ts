@@ -1,20 +1,20 @@
 import { MutationTree } from 'vuex';
 import { TodoListsState, TodoList, TodoCard } from '../../types/todolist';
-import { state } from './index'
+// import { state } from './index'
 
 const mutations: MutationTree<TodoListsState> = {
     addList(state, todoList: TodoList){
         state.todoLists.push(todoList)
-        save()
+        // save()
     },
     removeList(state, payload: { list_id: number }){
         state.todoLists = state.todoLists.filter(list=> list.id !== payload.list_id)
-        save()
+        // save()
     },
   
     dragList(state, newTodoLists: TodoList[]) {
         state.todoLists = newTodoLists
-        save()
+        // save()
     },
   
   
@@ -22,7 +22,7 @@ const mutations: MutationTree<TodoListsState> = {
         const todoList = state.todoLists.find(list=>list.id === payload.list_id)!
         todoList.todoCards.push(payload.todoCard)
         todoList.isVisible = false
-        save()
+        // save()
     },
     editCard(state, payload: {card_id: number,list_id: number, todoCard: TodoCard}){
         const todoList = state.todoLists.find(list=>list.id === payload.list_id)!
@@ -36,18 +36,18 @@ const mutations: MutationTree<TodoListsState> = {
         console.log(payload.todoCard)
         console.log(oldTodoCard)
         
-        save()
+        // save()
     },
     removeCard(state, payload: {card_id: number, list_id: number}){
         const todoList = state.todoLists.find(list=>list.id === payload.list_id)!
         todoList.todoCards = todoList.todoCards.filter(card => card.id !== payload.card_id)
-        save()
+        // save()
     },
 
     dragCard(state, payload: {val: TodoCard[], list_id: number}){
         const todoList = state.todoLists.find(list=>list.id === payload.list_id)!
         todoList.todoCards = payload.val
-        save()
+        // save()
     },
 
     toggleModal(state, payload: { isEditable: boolean, list_id: number, card_id: number}){
@@ -60,8 +60,8 @@ const mutations: MutationTree<TodoListsState> = {
     },
 };
 
-export const save = () => {
-    localStorage.setItem('todo-lists', JSON.stringify(state.todoLists))
-};
+// export const save = () => {
+//     localStorage.setItem('todo-lists', JSON.stringify(state.todoLists))
+// };
 
 export default mutations;

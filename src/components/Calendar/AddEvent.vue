@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, reactive } from 'vue'
+import { reactive } from 'vue'
 import { useStore } from '../../store'
 
     interface Props {

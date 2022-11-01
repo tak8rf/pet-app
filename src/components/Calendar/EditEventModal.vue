@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, reactive } from 'vue'
 import { useStore } from '../../store'
 import { EventItem } from '../../types/event'
 import RemoveEvent from '../Calendar/RemoveEvent.vue'
+
 
 interface Props {
   event_id: number;
@@ -10,6 +11,10 @@ interface Props {
 }
 
 const props = defineProps<Props>()
+
+  const eventReactive = reactive({
+    start: 0
+  })
 
   const emitTest = defineEmits(['close'])
 
@@ -24,8 +29,8 @@ const props = defineProps<Props>()
             event:{
                 health: event.value.health,
                 detail: event.value.detail,
-                start: event.value.start,
-                end: event.value.start
+                start: eventReactive.start,
+                end: eventReactive.start
             },
             event_id: props.event_id
         });
@@ -53,7 +58,7 @@ const props = defineProps<Props>()
             </label><br>
             <label>
                 日付を入力してください。<br>
-                <input name="date" type="date" v-model="event.start" /><br>
+                <input name="date" type="date" v-model="eventReactive.start" /><br>
             </label>
             <input type="submit" value="submit" />
         </form>

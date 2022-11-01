@@ -6,7 +6,29 @@ import router from '../../router'
 const savedEvents = localStorage.getItem('events')
 
 export const state: EventState = {
-    events: savedEvents ? JSON.parse(savedEvents): []
+    events: savedEvents ? JSON.parse(savedEvents): [
+        {
+            id: 1,
+            pet_id: 1,
+            health: "良い",
+            detail: "元気一杯！",
+            start: "2022-11-01",
+            end: "2022-11-01",
+            color: "blue",
+            isEditable: false
+        },
+        {
+            id: 2,
+            pet_id: 2,
+            health: "悪い",
+            detail: "耳が膿んでいる",
+            start: "2022-11-01",
+            end: "2022-11-01",
+            color: "red",
+            isEditable: false
+        },
+
+    ]
 };
 
 const getters: GetterTree<EventState, RootState> = {

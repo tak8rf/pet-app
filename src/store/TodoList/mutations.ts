@@ -30,7 +30,6 @@ const mutations: MutationTree<TodoListsState> = {
         console.log(oldTodoCard)
         oldTodoCard.description = payload.todoCard.description
         oldTodoCard.person_name = payload.todoCard.person_name
-        oldTodoCard.date = payload.todoCard.date
         oldTodoCard.time = payload.todoCard.time
         oldTodoCard.isEditable = false
         console.log(payload.todoCard)

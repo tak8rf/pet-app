@@ -29,7 +29,6 @@
             id: Math.floor(Math.random() * 100000), 
             person_name: card.value.person_name,
             description: card.value.description,
-            date: todoCard.date,
             time: card.value.time
             },
             list_id: props.list_id,
@@ -54,8 +53,7 @@
                         <input type="text" id="description" v-model="card.description" /><br>
                     </label>
                     <label>
-                        日付と時間を入力してください。<br>
-                        <input name="date" type="date" v-model="todoCard.date" />
+                        時間を入力してください。<br>
                         <input name="time" type="time" v-model="card.time" /><br>
                     </label>
                     <input type="submit" value="submit" class="add-button" />

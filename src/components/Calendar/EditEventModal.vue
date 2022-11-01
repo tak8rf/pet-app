@@ -57,7 +57,7 @@ const props = defineProps<Props>()
                 <textarea v-model="event.detail" placeholder="詳細を教えてください。"></textarea>
             </label><br>
             <label>
-                日付を入力してください。<br>
+                日付を入力してください。| 編集前: {{event.start}}<br>
                 <input name="date" type="date" v-model="eventReactive.start" /><br>
             </label>
             <input type="submit" value="submit" />

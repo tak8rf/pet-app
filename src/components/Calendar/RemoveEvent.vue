@@ -22,7 +22,7 @@ import { useStore } from '../../store'
 
 <style scoped>
 button{
-  margin-right: 135px;
+  margin-right: 285px;
   margin-top: 5px;
 }
 </style>
